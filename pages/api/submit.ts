@@ -45,6 +45,9 @@ async function handler(req: ISubmitRequest, res: NextApiResponse) {
   try {
     const validationErrors = validator(req.body);
 
+    if (!Object.keys(validationErrors).length) console.log(req.body);
+
+    // Not ideal, but allows mapping errors to each field in the UI
     res.status(200).json(validationErrors);
   } catch (err) {
     res.status(500).json({ statusCode: 500, cause: err.message });
